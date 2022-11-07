@@ -52,15 +52,6 @@ resource "ibm_is_lb_pool" "terra_test_lb_pool" {
   proxy_protocol = "v1"
 }
 
-resource "ibm_is_lb_pool_member" "terra_test_lb_pool_member" {
-  count          = "2"
-  lb             = ibm_is_lb.terra_test_lb_pool.id
-  pool           = element(split("/", ibm_is_lb_pool.terra_test_lb_pool.id), 1)
-  port           = "80"
-  target_address = "192.168.0.1"
-  depends_on     = [ibm_is_lb_listener.terra_test_lb_listener]
-}
-
 resource "ibm_is_lb_listener" "terra_test_lb_listener" {
   lb                         = ibm_is_lb.terra_test_lb.id
   port                       = "80"
@@ -68,4 +59,13 @@ resource "ibm_is_lb_listener" "terra_test_lb_listener" {
   https_redirect_listener    = ibm_is_lb_listener.terra_test_lb_listener.listener_id
   https_redirect_status_code = 301
   https_redirect_uri         = "/example?doc=get"
+}
+
+resource "ibm_is_lb_pool_member" "terra_test_lb_pool_member" {
+  count          = "2"
+  lb             = ibm_is_lb.terra_test_lb_pool.id
+  pool           = element(split("/", ibm_is_lb_pool.terra_test_lb_pool.id), 1)
+  port           = "80"
+  target_address = "192.168.0.1"
+  depends_on     = [ibm_is_lb_listener.terra_test_lb_listener]
 }
