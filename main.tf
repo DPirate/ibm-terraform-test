@@ -58,7 +58,7 @@ resource "ibm_is_lb_pool_member" "terra_test_lb_pool_member" {
   pool           = element(split("/", ibm_is_lb_pool.terra_test_lb_pool.id), 1)
   port           = "80"
   target_address = "192.168.0.1"
-  depends_on     = [ibm_is_lb_listener.example]
+  depends_on     = [ibm_is_lb_listener.terra_test_lb_listener]
 }
 
 resource "ibm_is_lb_listener" "terra_test_lb_listener" {
