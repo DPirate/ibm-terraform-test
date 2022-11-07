@@ -1,28 +1,21 @@
-provider "aws" {
-  region = var.region
+terraform {
+  required_providers {
+    ibm = {
+      source  = "IBM-Cloud/ibm"
+      version = ">= 1.12.0"
+    }
+  }
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
+provider "ibm" {
+  region                = var.region
+  visibility            = "private"
+  ibmcloud_api_key      = "qFLYymTwV5JfY8CZDPq07qC1eRB2h8hUFSR5eI_y6PMe"
+  iaas_classic_username = "2591271_milind@yayzy.com"
+  iaas_classic_api_key  = "7a0307836af6fe56519dfffc5e63712c405750e112f840b43f5f694cc77c2139"
 }
 
-resource "aws_instance" "ubuntu" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = var.instance_name
-  }
+# Create a VPC
+resource "ibm_is_vpc" "terra_test_vpc" {
+  name = "terra-test-vpc"
 }
