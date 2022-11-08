@@ -63,7 +63,7 @@ resource "ibm_is_lb_listener" "terra_test_lb_listener" {
 
 resource "ibm_is_lb_pool_member" "terra_test_lb_pool_member" {
   count          = "2"
-  lb             = ibm_is_lb.terra_test_lb_pool.id
+  lb             = ibm_is_lb.terra_test_lb.id
   pool           = element(split("/", ibm_is_lb_pool.terra_test_lb_pool.id), 1)
   port           = "80"
   target_address = "192.168.0.1"
