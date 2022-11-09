@@ -53,10 +53,9 @@ resource "ibm_is_lb_pool" "terra_test_lb_pool" {
 }
 
 resource "ibm_is_lb_listener" "terra_test_lb_listener" {
-  lb                 = ibm_is_lb.terra_test_lb.id
-  port               = "443"
-  protocol           = "https"
-  https_redirect_uri = "/example?doc=get"
+  lb       = ibm_is_lb.terra_test_lb.id
+  port     = "443"
+  protocol = "https"
 }
 
 resource "ibm_is_lb_pool_member" "terra_test_lb_pool_member" {
