@@ -66,3 +66,8 @@ resource "ibm_is_lb_pool_member" "terra_test_lb_pool_member" {
   target_address = "192.168.0.1"
   depends_on     = [ibm_is_lb_listener.terra_test_lb_listener]
 }
+
+
+module "ibmcloud_schematics_bigip_multinic" {
+  source = "./modules/ibmcloud_schematics_bigip"
+}
